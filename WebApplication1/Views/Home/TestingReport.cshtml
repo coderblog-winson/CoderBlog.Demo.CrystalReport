@@ -1,0 +1,49 @@
+﻿
+
+<h2>We can use the iframe to include the webform page for show the report</h2>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <Button id="previewBtn" class="btn btn-primary reportBtn" onclick="PrintReport('inline');">Preview Report</Button>
+                </div>
+                <div class="col-md-2">
+                    <Button id="excelBtn" class="btn btn-info reportBtn" onclick="PrintReport('excel');">Export to Excel</Button>
+                </div>
+                <div class="col-md-2">
+                    <Button id="pdfBtn" class="btn btn-info reportBtn" onclick="PrintReport('pdf');">Export to PDF</Button>
+                </div>
+                <div class="col-md-2">
+                    <Button id="wordBtn" class="btn btn-info reportBtn" onclick="PrintReport('word');">Export to Word</Button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <iframe id="ReportFrame" src="" width="100%" height="1000" style="border:none"></iframe>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function PrintReport(printType) {
+        if (printType == 'inline') {
+            //you can add the loading.....
+            // $.blockUI({ message: '<h3><img src="@Url.Content("~/Content/images/busy.gif")" /> Please wait a moment...</h3>' });
+        }
+
+        //var params = "param1=;param2=";//create the parameters for report
+        var params = '';
+        //load the report by iframe 
+        $("#ReportFrame").attr("src", "@Url.Content("~/Reports/ReportViewer.aspx?Params=")" + params + "&ReportName=Testing&SaveName=Testing Report&ReportType=" + printType + "&ReportPath=Demo");
+
+        $('#ReportFrame').load(function () {
+            //and stop the loading after load
+            // $.unblockUI();
+        });
+    }
+</script>
